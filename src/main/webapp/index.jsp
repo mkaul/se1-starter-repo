@@ -67,6 +67,7 @@
                          vehicle_types='["PKW","SUV"]'
                          price_factor='{"SUV":2,"Business":1}'
                          random_start="2"
+                         json_format="true"
                          debug="true"
                          max="12">
     </ccm-parkhaus-10-0-0>
