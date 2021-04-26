@@ -16,7 +16,8 @@ import java.util.List;
  */
 public abstract class ParkhausServlet extends HttpServlet {
 
-    /* abstract methods here, to be defined in subclasses */
+    /* abstract methods, to be defined in subclasses */
+    abstract String NAME(); // each ParkhausServlet should have a name, e.g. "Level1"
     abstract int MAX(); // maximum number of parking slots of a single parking level
     abstract String config(); // configuration of a single parking level
 
@@ -38,12 +39,12 @@ public abstract class ParkhausServlet extends HttpServlet {
                 out.println( getPersistentSum() );
                 break;
             case "cars":
-                // Send list of cars stored on the server to the client.
+                // TODO: Send list of cars stored on the server to the client.
                 // Cars are separated by comma.
                 // Values of a single car are separated by slash.
                 // Format: Nr, timer begin, duration, price, Ticket, color, space, client category, vehicle type, license (PKW Kennzeichen)
                 // For example:
-                out.println("1/1619420863044/_/_/Ticket1/#0d1e0a/2/any/PKW/1,2/1619420863045/_/_/Ticket2/#dd10aa/3/any/PKW/2"); // TODO replace by real list of cars
+                // out.println("1/1619420863044/_/_/Ticket1/#0d1e0a/2/any/PKW/1,2/1619420863045/_/_/Ticket2/#dd10aa/3/any/PKW/2"); // TODO replace by real list of cars
                 break;
             case "chart":
                 // TODO send chart infos as JSON object to client
@@ -71,10 +72,9 @@ public abstract class ParkhausServlet extends HttpServlet {
             case "enter":
                 CarIF newCar = new Car( params );
                 cars().add( newCar );
-                int space = locator( newCar );
                 System.out.println( "enter," + newCar );
                 // re-direct car to another parking lot
-                out.println( space );
+                // out.println( locator( newCar ) );
                 break;
             case "leave":
                 CarIF oldCar = cars().get(0);
@@ -83,7 +83,7 @@ public abstract class ParkhausServlet extends HttpServlet {
                     if ( ! "_".equals( priceString ) ){
                         float price = (float)Integer.parseInt( priceString ) / 100.0f;
                         // store new sum in ServletContext
-                        getContext().setAttribute("sum", getPersistentSum() + price );
+                        getContext().setAttribute("sum"+NAME(), getPersistentSum() + price );
                     }
                 }
                 System.out.println( "leave," + oldCar );
@@ -122,10 +122,10 @@ public abstract class ParkhausServlet extends HttpServlet {
      */
     @SuppressWarnings("unchecked")
     List<CarIF> cars(){
-        if ( getContext().getAttribute( "cars" ) == null ){
-            getContext().setAttribute( "cars", new ArrayList<Car>() );
+        if ( getContext().getAttribute( "cars"+NAME() ) == null ){
+            getContext().setAttribute( "cars"+NAME(), new ArrayList<Car>() );
         }
-        return (List<CarIF>) getContext().getAttribute( "cars" );
+        return (List<CarIF>) getContext().getAttribute( "cars"+NAME() );
     }
 
     /**

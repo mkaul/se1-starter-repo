@@ -14,6 +14,11 @@ import java.util.List;
 public class Level1Servlet extends ParkhausServlet {
 
     @Override
+    String NAME(){
+        return "Level1";
+    }
+
+    @Override
     int MAX(){ // maximum number of parking slots on level 1
         return 11;
     }

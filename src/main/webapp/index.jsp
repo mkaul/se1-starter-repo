@@ -49,12 +49,13 @@
 <div class="box lightyellow">
     <h1>Parkhaus Etage 1</h1>
     <ccm-parkhaus-10-0-0 server_url="./level1-servlet"
+                         hide_table="true"
                          name="Etage1"
-                         license_max="14"
+                         license_max="15"
                          client_categories='["any","Family"]'
                          vehicle_types='["PKW","SUV"]'
                          price_factor='{"SUV":2,"Family":0.5}'
-                         max="10">
+                         max="11">
     </ccm-parkhaus-10-0-0>
 </div>
 <div class="box lightgreen">
@@ -65,7 +66,9 @@
                          client_categories='["any","Business"]'
                          vehicle_types='["PKW","SUV"]'
                          price_factor='{"SUV":2,"Business":1}'
-                         max="10">
+                         random_start="2"
+                         debug="true"
+                         max="12">
     </ccm-parkhaus-10-0-0>
 </div>
 </body>
