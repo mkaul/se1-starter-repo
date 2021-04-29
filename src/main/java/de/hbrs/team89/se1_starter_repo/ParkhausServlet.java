@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -68,10 +69,11 @@ public abstract class ParkhausServlet extends HttpServlet {
         System.out.println( body );
         String[] params = body.split(",");
         String event = params[0];
+        String[] restParams = Arrays.copyOfRange(params, 1, params.length);
 
         switch( event ){
             case "enter":
-                CarIF newCar = new Car( params );
+                CarIF newCar = new Car( restParams );
                 cars().add( newCar );
                 System.out.println( "enter," + newCar );
                 // re-direct car to another parking lot

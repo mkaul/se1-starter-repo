@@ -2,6 +2,7 @@ package de.hbrs.team89.se1_starter_repo;
 
 import java.util.Arrays;
 
+// ToDo replace 0 by correct values read from this.params
 public class Car implements CarIF {
     String[] params;
     public Car( String[] params ){
