@@ -96,6 +96,11 @@ public abstract class ParkhausServlet extends HttpServlet {
             case "invalid": case "occupied":
                 System.out.println( body );
                 break;
+            case "tomcat":
+                out.println( getServletConfig().getServletContext().getServerInfo()
+                        + getServletConfig().getServletContext().getMajorVersion()
+                        + getServletConfig().getServletContext().getMinorVersion() );
+                break;
             default:
                 System.out.println( body );
                 // System.out.println( "Invalid Command: " + body );
