@@ -143,7 +143,7 @@ public abstract class ParkhausServlet extends HttpServlet {
      * @return the sum of parking fees of all cars stored so far
      */
     Float getPersistentSum(){
-        Float sum = (Float)getContext().getAttribute("sum");
+        Float sum = (Float)getContext().getAttribute("sum"+NAME());
         return sum == null ?  0.0f : sum;
     }
 

@@ -53,6 +53,7 @@
                          hide_table="true"
                          name="Etage1"
                          license_max="15"
+                         extra_buttons='["sum","avg"]'
                          client_categories='["any","Family"]'
                          vehicle_types='["PKW","SUV"]'
                          price_factor='{"SUV":2,"Family":0.5}'
