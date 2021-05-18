@@ -77,7 +77,7 @@ public abstract class ParkhausServlet extends HttpServlet {
                 cars().add( newCar );
                 System.out.println( "enter," + newCar );
                 // re-direct car to another parking lot
-                // out.println( locator( newCar ) );
+                out.println( locator( newCar ) );
                 break;
             case "leave":
                 CarIF oldCar = cars().get(0);
@@ -124,6 +124,7 @@ public abstract class ParkhausServlet extends HttpServlet {
      */
     int locator( CarIF car ){
         // numbers of parking lots start at 1, not zero
+        // return 1;  // always use the first space
         return 1 + (( cars().size() - 1 ) % this.MAX());
     }
 
