@@ -28,6 +28,7 @@ public abstract class ParkhausServlet extends HttpServlet {
      */
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("text/html");
+        response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
         String cmd = request.getParameter("cmd");
         System.out.println( cmd + " requested: " + request.getQueryString());
@@ -38,7 +39,13 @@ public abstract class ParkhausServlet extends HttpServlet {
                 out.println( config() );
                 break;
             case "sum":
-                out.println( getPersistentSum() );
+                // ToDo
+                break;
+            case "avg":
+                // ToDo
+                break;
+            case "max":
+                // ToDo
                 break;
             case "cars":
                 // TODO: Send list of cars stored on the server to the client.
@@ -46,7 +53,8 @@ public abstract class ParkhausServlet extends HttpServlet {
                 // Values of a single car are separated by slash.
                 // Format: Nr, timer begin, duration, price, Ticket, color, space, client category, vehicle type, license (PKW Kennzeichen)
                 // For example:
-                // out.println("1/1619420863044/_/_/Ticket1/#0d1e0a/2/any/PKW/1,2/1619420863045/_/_/Ticket2/#dd10aa/3/any/PKW/2"); // TODO replace by real list of cars
+                // TODO replace by real list of cars
+                out.println("1/1619420863044/_/_/Ticket1/#0d1e0a/2/any/PKW/1,2/1619420863045/_/_/Ticket2/#dd10aa/3/any/PKW/2");
                 break;
             case "chart":
                 // TODO send chart infos as JSON object to client
@@ -75,20 +83,21 @@ public abstract class ParkhausServlet extends HttpServlet {
             case "enter":
                 CarIF newCar = new Car( restParams );
                 cars().add( newCar );
-                System.out.println( "enter," + newCar );
+                // System.out.println( "enter," + newCar );
+
                 // re-direct car to another parking lot
                 out.println( locator( newCar ) );
                 break;
             case "leave":
-                CarIF oldCar = cars().get(0);
+                CarIF oldCar = cars().get(0);  // ToDo remove car from list
                 if ( params.length > 4 ){
                     String priceString = params[4];
                     if ( ! "_".equals( priceString ) ){
                         // for JSON format skip over text and proceed to next integer
-                        float price = (float)new Scanner( priceString ).useDelimiter("\\D+").nextInt();
-                        price /= 100.0f;  // like Integer.parseInt( priceString ) / 100.0f;
+                        double price = (double)new Scanner( priceString ).useDelimiter("\\D+").nextInt();
+                        price /= 100.0d;  // like Integer.parseInt( priceString ) / 100.0d;
                         // store new sum in ServletContext
-                        getContext().setAttribute("sum"+NAME(), getPersistentSum() + price );
+                        // ToDo getContext().setAttribute("sum"+NAME(), getSum() + price );
                     }
                 }
                 System.out.println( "leave," + oldCar );
@@ -137,15 +146,6 @@ public abstract class ParkhausServlet extends HttpServlet {
             getContext().setAttribute( "cars"+NAME(), new ArrayList<Car>() );
         }
         return (List<CarIF>) getContext().getAttribute( "cars"+NAME() );
-    }
-
-    /**
-     * TODO: replace this by your own function
-     * @return the sum of parking fees of all cars stored so far
-     */
-    Float getPersistentSum(){
-        Float sum = (Float)getContext().getAttribute("sum"+NAME());
-        return sum == null ?  0.0f : sum;
     }
 
     /**
