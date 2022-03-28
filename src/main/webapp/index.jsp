@@ -12,7 +12,7 @@
     <meta property="og:description" content="Bachelor Course Software Engineering 1 (SE1), Hochschule Bonn-Rhein-Sieg.">
     <link rel="shortcut icon" href="https://kaul.inf.h-brs.de/favicon.ico" />
     <title>Tomcat Parkhaus</title>
-    <script src="https://kaul.inf.h-brs.de/ccmjs/mkaul-components/parkhaus/versions/ccm.parkhaus-10.2.2.js"></script>
+    <script src="https://kaul.inf.h-brs.de/ccmjs/mkaul-components/parkhaus/versions/ccm.parkhaus-11.0.0.js"></script>
     <style>
         * {
             font-family: sans-serif, Helvetica, Arial;
@@ -48,33 +48,32 @@
     <h2><a href="kasse.jsp">Kasse</a></h2>
 </div>
 <div class="box lightyellow">
-    <h1>Parkhaus Etage 1</h1>
-    <ccm-parkhaus-10-2-2 server_url="./level1-servlet"
-                         hide_table="true"
-                         debug="false"
+    <h1>Parkhaus Frauenparkplätze</h1>
+    <ccm-parkhaus-11-0-0 server_url="./level1-servlet"
+                         hide_table="false"
+                         debug="true"
                          name="Etage1"
                          license_max="15"
-                         extra_buttons='["sum","avg","max"]'
-                         client_categories='["any","Family"]'
+                         extra_buttons='["sum","min"]'
+                         client_categories='["Frau"]'
                          vehicle_types='["PKW","SUV"]'
                          price_factor='{"SUV":2,"Family":0.5}'
                          max="11">
-    </ccm-parkhaus-10-2-2>
+    </ccm-parkhaus-11-0-0>
 </div>
 <div class="box lightgreen">
     <h1>Parkhaus Etage 2</h1>
-    <ccm-parkhaus-10-2-2 server_url="./level2-servlet"
+    <ccm-parkhaus-11-0-0 server_url="./level2-servlet"
                          name="Etage2"
                          license_min="16"
                          license_max="30"
                          client_categories='["any","Business"]'
                          vehicle_types='["PKW","SUV"]'
                          price_factor='{"SUV":2,"Business":1}'
-                         json_format="true"
                          debug="true"
                          max="10"
                          SALT="456">
-    </ccm-parkhaus-10-2-2>
+    </ccm-parkhaus-11-0-0>
 </div>
 </body>
 </html>

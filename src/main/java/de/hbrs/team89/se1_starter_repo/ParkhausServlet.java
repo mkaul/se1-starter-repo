@@ -39,13 +39,19 @@ public abstract class ParkhausServlet extends HttpServlet {
                 out.println( config() );
                 break;
             case "sum":
-                // ToDo
+                // ToDo: insert algorithm for calculating sum here
+                out.println( "sum = server side calculated sum" );
                 break;
             case "avg":
                 // ToDo
                 break;
+            case "min":
+                // ToDo: insert algorithm for calculating min here
+                out.println( "min = server side calculated min" );
+                break;
             case "max":
-                // ToDo
+                // ToDo: insert algorithm for calculating max here
+                out.println( "max = server side calculated max" );
                 break;
             case "cars":
                 // TODO: Send list of cars stored on the server to the client.
@@ -54,7 +60,7 @@ public abstract class ParkhausServlet extends HttpServlet {
                 // Format: Nr, timer begin, duration, price, Ticket, color, space, client category, vehicle type, license (PKW Kennzeichen)
                 // For example:
                 // TODO replace by real list of cars
-                out.println("1/1619420863044/_/_/Ticket1/#0d1e0a/2/any/PKW/1,2/1619420863045/_/_/Ticket2/#dd10aa/3/any/PKW/2");
+                // out.println("1/1648465400000/_/_/Ticket1/#0d1e0a/2/any/PKW/1,2/1648465499999/_/_/Ticket2/#dd10aa/3/any/PKW/2");
                 break;
             case "chart":
                 // TODO send chart infos as JSON object to client
@@ -90,17 +96,18 @@ public abstract class ParkhausServlet extends HttpServlet {
                 break;
             case "leave":
                 CarIF oldCar = cars().get(0);  // ToDo remove car from list
+                double price = 0.0d;
                 if ( params.length > 4 ){
                     String priceString = params[4];
                     if ( ! "_".equals( priceString ) ){
-                        // for JSON format skip over text and proceed to next integer
-                        double price = (double)new Scanner( priceString ).useDelimiter("\\D+").nextInt();
-                        price /= 100.0d;  // like Integer.parseInt( priceString ) / 100.0d;
+                        price = (double)new Scanner( priceString ).useDelimiter("\\D+").nextInt();
+                        price /= 100.0d;  // just as Integer.parseInt( priceString ) / 100.0d;
                         // store new sum in ServletContext
                         // ToDo getContext().setAttribute("sum"+NAME(), getSum() + price );
                     }
                 }
-                System.out.println( "leave," + oldCar );
+                out.println( price );  // server calculated price
+                System.out.println( "leave," + oldCar + ", price = " + price );
                 break;
             case "invalid": case "occupied":
                 System.out.println( body );
